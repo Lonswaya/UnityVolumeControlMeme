@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/**
+ * A class from another project that causes objects moving fast enough to play their sound
+ */
 public class Noisy : MonoBehaviour {
     AudioSource mySound;
 

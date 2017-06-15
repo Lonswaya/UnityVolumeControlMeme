@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * The noodle-looking things that make up a sound control menu
+ * The user must place these in the correct position, or else they will have to reset to the correct point. 
+ */
+
 public class Noodle : MonoBehaviour {
     public int id;
     private bool connected;
@@ -19,7 +24,9 @@ public class Noodle : MonoBehaviour {
         xAnimator = scoreCounter.xAnimator;
         connected = false;
     }
-
+    /**
+     * Called when hitting one of the triggers, in this case it is the hooks. Attaches itself if necessary
+     */
     void OnTriggerEnter(Collider col) {
         Hook h;
         if ((h = col.transform.GetComponent<Hook>()) && (h.id == (scoreCounter.getScore() + 1)) && connected == false) {
@@ -42,7 +49,9 @@ public class Noodle : MonoBehaviour {
             }
         }
     }
-
+    /**
+     * Disconnects the current noodle, establishes the gibs, and deletes itself
+     */
 	public void Disconnect() {
         transform.parent = null;
         // Disable so gibs don't go flying

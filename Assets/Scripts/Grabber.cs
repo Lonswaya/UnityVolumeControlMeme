@@ -17,18 +17,21 @@ public class Grabber : MonoBehaviour {
         if (grabbedItem && grabbedItem.transform.parent != reticle) {
             grabbedItem = null;
         }
-
+        // If we have passed the cooldown
         if (Time.timeSinceLevelLoad - lastGrab > cooldown) {
+            // If we have the mouse down, and have clicked up beforehands
             if (Input.GetAxis("Fire1") > 0 && lastClick == false) {
                 lastClick = true;
                 lastGrab = Time.timeSinceLevelLoad;
+                // If we have an item, drop it
                 if (grabbedItem != null) {
                     grabbedItem.GetComponent<Rigidbody>().isKinematic = false;
                     grabbedItem.transform.parent = null;
                     grabbedItem = null;
                     
                 } else {
-                    RaycastHit[] hits = Physics.RaycastAll(camera.position, reticle.position - camera.position, Vector3.Distance(reticle.position, camera.position) * 3);
+                    // Otherwise, search for a new one and reset the score if necessary
+                    RaycastHit[] hits = Physics.RaycastAll(camera.position, reticle.position - camera.position, Vector3.Distance(reticle.position, camera.position) * 5);
                     foreach (RaycastHit hit in hits) {
                         Rigidbody r;
                         ScoreCounter s;
@@ -38,6 +41,7 @@ public class Grabber : MonoBehaviour {
                         }
                         if (hit.transform.GetComponent<Noodle>() && !(r = hit.transform.GetComponent<Rigidbody>()).isKinematic) {
                             hit.transform.parent = reticle;
+                            hit.transform.position = reticle.position;
                             r.isKinematic = true;
                             grabbedItem = hit.transform;
                             break;
