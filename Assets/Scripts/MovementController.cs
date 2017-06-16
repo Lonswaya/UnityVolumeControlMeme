@@ -9,7 +9,7 @@ public class MovementController : MonoBehaviour {
     public Transform camera;
 	
 	// Update is called once per frame
-	void Update () {
+    void FixedUpdate () {
         float mouseY = Input.GetAxis("Mouse Y");
         float requestedAngle = camera.localEulerAngles.x - mouseY;
         print(requestedAngle);
